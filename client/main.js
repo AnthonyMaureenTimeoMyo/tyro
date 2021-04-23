@@ -7,8 +7,8 @@ import rootReducer from './reducers';
 import App from './containers/App';
 import statesData from './data/stateData'; // initial state data
 
-const initialState = {
-  regionData: statesData,
+const initialState={
+ regionData: statesData,
   emptyRegions: [],
   sortState: { key: 'name', direction: 'ASC' },
 };

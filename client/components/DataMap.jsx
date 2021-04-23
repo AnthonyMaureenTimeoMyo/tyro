@@ -15,7 +15,15 @@ export default class DataMap extends React.Component {
       regionData : this.props.regionData,
       showTable : false,
       timeo: false,
-      currState : ''
+      currState : '',
+      //Company, Salary, Job title,status,platform
+      applicationData: {
+            company: 'Bloomberg',
+            salary: 90000,
+            job: 'Software-Engineer',
+            status: 'Interview',
+            platform: 'indeed.com'
+      }
     }
     this.datamap = null;
     this.isLoggedIn = false;
@@ -26,7 +34,7 @@ export default class DataMap extends React.Component {
     const minVal = Math.min(...dataValues);
     const maxVal = Math.max(...dataValues);
     //Min and max range is from 0 -> 192
-    return d3.scale.linear().domain([minVal, maxVal]).range(["#EFEFFF","#02386F"])(value);
+    return d3.scale.linear().domain([minVal, maxVal]).range(["#00D1D1","#204aee"])(value);
   }
   redducedData(){
     const newData = this.props.regionData.reduce((object, data) => {
@@ -64,7 +72,7 @@ export default class DataMap extends React.Component {
     e.preventDefault();
     let state = e.target["__data__"].properties.name;
     this.setState({currState: state})
-    this.setState({timeo: true})
+    this.setState({showTable: true})
   }
   
   currentScreenWidth(){
@@ -78,7 +86,7 @@ export default class DataMap extends React.Component {
     const initialScreenWidth = this.currentScreenWidth();
     const containerWidth = (initialScreenWidth < 600) ?
     { width: initialScreenWidth + 'px',  height: (initialScreenWidth * 0.5625) + 'px' } :
-    { width: `${600*2.5}px`, height: `${350*2.5}px` } // filling the whole page
+    { width: `${600*1.5}px`, height: `${350*1.5}px` } // filling the whole page
     
     mapContainer.style(containerWidth);
     this.datamap = this.renderMap();
@@ -88,8 +96,8 @@ export default class DataMap extends React.Component {
       if (this.currentScreenWidth() > 600 && mapContainerWidth !== '600px') {
         d3.select('svg').remove();
         mapContainer.style({
-          width: `${600* 1}px`,
-          height: `${350* 1}px`
+          width: `${600* 1.5}px`,
+          height: `${350* 1.5}px`
         });
         this.datamap = this.renderMap();
       }
@@ -116,8 +124,10 @@ export default class DataMap extends React.Component {
   render() {
     //Render Component that will show additional state data
     let moreStateInfo;
-    if (this.state.timeo) {
+    let applicationInfo;
+    if (this.state.showTable) {
       let stateObj;
+      console.log(this.state.regionData);
       //Iterate through this.props.regionData and find the object where the state is equal to currState
       for(let i = 0; i < this.state.regionData.length; i++){
         if(this.state.currState === this.state.regionData[i].name){
@@ -127,21 +137,31 @@ export default class DataMap extends React.Component {
         }
       }
       //Render component that will show all application info
-      let applicationInfo;
-      
-      
+       applicationInfo = 
+      React.createElement('div', {},
+        React.createElement('ul',{},
+            [
+            React.createElement('li', {},`Company: ${this.state.applicationData.company}`),  
+            React.createElement('li', {},`Median Salary: $${this.state.applicationData.salary}`),
+            React.createElement('li', {},`Job Title: ${this.state.applicationData.job}`),
+            React.createElement('li', {},`Status: ${this.state.applicationData.status}`),  
+            React.createElement('li', {},`Platform: ${this.state.applicationData.platform}`),  
+            ]
+          )
+        );
+
       if(stateObj){
         //Render component that shows all state data
         moreStateInfo = 
         React.createElement('div', stateObj,
         React.createElement('ul',{},
             [
-            React.createElement('li', {},`State initials: ${stateObj.name}`),  
-            React.createElement('li', {},`Median Salary: $${stateObj.wage}`),
-            React.createElement('li', {},`Cost of Living Index: ${stateObj.cost_of_living_index}`),
-            React.createElement('li', {},`Median rent for studio: $${stateObj.median_rent}`),  
-            React.createElement('li', {},`Gallon of gas: $${stateObj.gas | 2.89}`),  
-            React.createElement('li', {},`Gallon of milk: $${stateObj.milk | 3.59}`), 
+                React.createElement('li', {stateObj},`State initials: ${stateObj.name}`),  
+                React.createElement('li', {stateObj},`Median Salary: $${stateObj.wage}`),
+                React.createElement('li', {stateObj},`Cost of Living Index: ${stateObj.cost_of_living_index}`),
+                React.createElement('li', {stateObj},`Median rent for studio: $${stateObj.median_rent}`),  
+                React.createElement('li', {stateObj},`Gallon of gas: $${stateObj.gas | 2.89}`),  
+                React.createElement('li', {stateObj},`Gallon of milk: $${stateObj.milk | 3.59}`),
             ]
         )
         );
@@ -151,15 +171,15 @@ export default class DataMap extends React.Component {
         console.log('ul: ',ul);
         console.log('list: ', list)
         console.log('list: ', list[0].key)
-        // list.forEach((li, key) => {
-        //   li.key = key;
-        // });
       }
     }
     return (
-      <div id="datamap-container">  
-      {moreStateInfo}  
+      <div className="datamap-container" id="datamap-container">  
+      <div className="moreStateInfo">
+      {moreStateInfo}
       </div>
+      {applicationInfo}   
+    </div>
       );
     }
   }

@@ -6,8 +6,8 @@ import regionData from './regionData';
 
 const rootReducer = combineReducers({
   regionData,
-   emptyRegions,
-   sortState
+  emptyRegions,
+  sortState
 });
 
 export default rootReducer;

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LoginComponent from '../components/LoginComponent'
 import DataMap from '../components/DataMap';
-
+import ApplicationComponent from '../components/ApplicationComponent';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,15 +11,20 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <center> <h3>Democratizing software developer salary info so you don't have too</h3></center>
-        <LoginComponent/>
+        {/* <center> <h3>Democratizing software engineering salaries so you don't have to</h3></center> */}
+          <LoginComponent/>
+        <h1 className="title">Software Engineering Salary Map</h1>
+        <br>
+        </br> 
         <div className='datamap-outer-conainer'>
         <DataMap 
         regionData={this.props.regionData} 
         />
+         <ApplicationComponent/>
+        </div>
         <div className = 'data'></div>
       </div>
-      </div>
+
       );
     }
   }

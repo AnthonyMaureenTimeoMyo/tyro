@@ -1,4 +1,4 @@
- const states = [
+const states = [
   {
     id: 1,
     value: 130,
@@ -89,16 +89,16 @@
     milk: 3.19,
   },
 
-  {
-    id: 9,
-    name: 'District of Columbia',
-    state_code: 'DC',
-    wage: 119960,
-    median_rent: 2711,
-    cost_of_living_index: 0,
-    gas: 3.03,
-    milk: 0,
-  },
+  // {
+  //   id: 9,
+  //   name: 'District of Columbia',
+  //   state_code: 'DC',
+  //   wage: 119960,
+  //   median_rent: 2711,
+  //   cost_of_living_index: 0,
+  //   gas: 3.03,
+  //   milk: 0,
+  // },
 
   {
     id: 10,
@@ -428,16 +428,16 @@
     milk: 3.4,
   },
 
-  {
-    id: 40,
-    name: 'Puerto Rico',
-    state_code: 'PR',
-    wage: 48700,
-    median_rent: 0,
-    cost_of_living_index: 0,
-    gas: 0,
-    milk: 0,
-  },
+  // {
+  //   id: 40,
+  //   name: 'Puerto Rico',
+  //   state_code: 'PR',
+  //   wage: 48700,
+  //   median_rent: 0,
+  //   cost_of_living_index: 0,
+  //   gas: 0,
+  //   milk: 0,
+  // },
 
   {
     id: 41,
